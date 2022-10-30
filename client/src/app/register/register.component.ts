@@ -22,7 +22,4 @@ export class RegisterComponent implements OnInit {
     this.cancelRegister.emit(false);
    }
 }
-function OutPut() {
-  throw new Error('Function not implemented.');
-}
 
