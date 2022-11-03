@@ -15,6 +15,7 @@ namespace API.Extensions
         {
             // add JWT token services in pipeline.
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
