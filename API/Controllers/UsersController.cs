@@ -13,10 +13,9 @@ namespace API.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
-        public IMapper _mapper { get; set; }
-        public UsersController(IUserRepository userRepository, IMapper mapper)
+
+        public UsersController(IUserRepository userRepository)
         {
-            _mapper = mapper;
             _userRepository = userRepository;
         }
 
@@ -27,17 +26,10 @@ namespace API.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{usename}")]
+        [HttpGet("{username}")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             return await _userRepository.GetMemberAsync(username);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<MemberDto>> GetUser(int id)
-        {
-            var user = _userRepository.GetuserByIdAsync(id);
-            return _mapper.Map<MemberDto>(user);
         }
     }
 }
