@@ -26,7 +26,7 @@ export class MembersService {
     return this.http.get<Member[]>(this.baseUrl + 'users')
   }
 
-  getmember(username: string){
+  getMember(username: string){
     //temp way
     //return this.http.get<Member>(this.baseUrl + 'users/'+ username, httpOptions);
 
