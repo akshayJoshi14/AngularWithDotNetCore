@@ -44,7 +44,13 @@ export class PhotoEditorComponent implements OnInit {
         if (p.id === photo.id) p.isMain =true;
       })
     })
-}
+  }
+
+    deletePhoto(photoId: number){
+      this.memberService.deletePhoto(photoId).subscribe(()=> {
+        this.member.photos = this.member.photos.filter(x => x.id != photoId);
+      })
+    }
 
   intializeUploader(){
     this.uploader = new FileUploader({
