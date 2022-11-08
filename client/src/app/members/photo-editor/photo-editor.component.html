@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-2" *ngFor="let photo of member.photos">
-        <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1">
+        <img src="{{photo?.url}}" alt="{{photo?.url}}" class="img-thumbnail p-1">
         <div class="text-center">
             <button class="btn btn-sm">Main</button>
             <button class="btn btn-sm btn-danger">
@@ -44,7 +44,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of uploader.queue">
+            <tr *ngFor="let item of uploader?.queue">
                 <td><strong>{{ item?.file?.name }}</strong></td>
                 <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
             </tr>
