@@ -12,9 +12,9 @@ import { AccountService } from '../_services/account.service';
 export class RegisterComponent implements OnInit {
   //@Input() usersFromHomeComponent : any;
   @Output() cancelRegister = new EventEmitter();
-  model: any = {};
   registerForm: FormGroup;
   maxDate: Date;
+  validationErrors : string[] = [];
 
   constructor(private accountService : AccountService, private router: Router,
     private toastr: ToastrService, private fb: FormBuilder) { }
@@ -51,14 +51,19 @@ export class RegisterComponent implements OnInit {
   }
 
    register(){
-    console.log(this.registerForm.value);
-    // this.accountService.register(this.model).subscribe(response => {
-    //   console.log(response);
-    //   this.cancel();
-    // }, error => {
-    //   console.log(error);
-    //   this.toastr.error(error.error);
-    // } )
+   // console.log(this.registerForm.value);
+    
+    this.accountService.register(this.registerForm.value).subscribe(response => {
+      //console.log(response);
+      //this.cancel();
+
+      this.router.navigateByUrl('/members');
+      
+    }, error => {
+      this.validationErrors = error;
+      // console.log(error);
+      // this.toastr.error(error.error);
+    } )
    }
 
    cancel(){
