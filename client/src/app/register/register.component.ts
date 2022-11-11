@@ -14,19 +14,27 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
   registerForm: FormGroup;
+  maxDate: Date;
 
   constructor(private accountService : AccountService, private router: Router,
     private toastr: ToastrService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.IntializeForm()
+    this.IntializeForm();
+    this.maxDate = new Date();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
   IntializeForm(){
     this.registerForm = this.fb.group({
       username: ['',Validators.required],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
-      confirmPassword : ['',[Validators.required, this.matchValues('password')]]
+      confirmPassword : ['',[Validators.required, this.matchValues('password')]],
+      gender : ['male'],
+      knownAs : ['',Validators.required],
+      dateOfBirth : ['',Validators.required],
+      city : ['',Validators.required],
+      country : ['',Validators.required],
     })
 
     this.registerForm.controls.password.valueChanges.subscribe(() => {
