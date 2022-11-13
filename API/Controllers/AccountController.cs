@@ -74,10 +74,10 @@ namespace API.Controllers
             
             return new UserDto
             {
-                    Username = user.UserName,
-                    Token = _tokenService.CreateToken(user),
-                    PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
-                    KnownAs = user.KnownAs
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user),
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                KnownAs = user.KnownAs
             };
 
          }
