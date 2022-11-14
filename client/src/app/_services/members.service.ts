@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
@@ -20,6 +20,7 @@ import { UserParams } from '../_models/userParams';
 export class MembersService {
   baseUrl = environment.apiUrl;
   members : Member[] = [];
+  memberCache = new Map();
 
   constructor(private http: HttpClient) { }
 
@@ -37,6 +38,12 @@ export class MembersService {
     // )
     //#endregion
 
+    var response = this.memberCache.get(Object.values(userParams).join('-'));
+
+    if(response){
+      return of(response);
+    }
+
     let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
 
     params = params.append('minAge', userParams.minAge.toString());
@@ -45,6 +52,10 @@ export class MembersService {
     params = params.append('orderBy', userParams.orderBy);
 
     return this.getPaginatedResult<Member[]>(this.baseUrl+ 'users', params)
+        .pipe(map(response => {
+          this.memberCache.set(Object.values(userParams).join('-'), response)
+          return response;
+        }))
   }
 
   getMember(username: string){
