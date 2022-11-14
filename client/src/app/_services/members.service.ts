@@ -24,7 +24,7 @@ export class MembersService {
   constructor(private http: HttpClient) { }
 
   getMembers(userParams: UserParams){
-    // temp way
+    //#region temp way
     //return this.http.get<Member[]>(this.baseUrl + 'users', httpOptions);
   
     // second phase caching 
@@ -35,6 +35,7 @@ export class MembersService {
     //     return members;
     //   })
     // )
+    //#endregion
 
     let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
 
@@ -49,8 +50,8 @@ export class MembersService {
   getMember(username: string){
     //temp way
     //return this.http.get<Member>(this.baseUrl + 'users/'+ username, httpOptions);
-    const memeber = this.members.find(x => x.username === username);
-    if(this.members !== undefined) return of(memeber);
+    // const memeber = this.members.find(x => x.username === username);
+    // if(this.members !== undefined) return of(memeber);
     return this.http.get<Member>(this.baseUrl + 'users/'+ username);
   }
 
