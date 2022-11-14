@@ -59,10 +59,21 @@ export class MembersService {
   }
 
   getMember(username: string){
+    //#region  oldcode
     //temp way
     //return this.http.get<Member>(this.baseUrl + 'users/'+ username, httpOptions);
     // const memeber = this.members.find(x => x.username === username);
     // if(this.members !== undefined) return of(memeber);
+    //#endregion
+    
+    const member = [...this.memberCache.values()]
+    .reduce((arr, elem) => arr.concat(elem.result),[])
+    .find((member:Member) => member.username === username);
+
+    if(member) {
+      return of(member);
+    }
+
     return this.http.get<Member>(this.baseUrl + 'users/'+ username);
   }
 
