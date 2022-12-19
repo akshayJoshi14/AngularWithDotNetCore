@@ -55,9 +55,9 @@ namespace API.Controllers
          [HttpPost("login")]
          public async Task<ActionResult<UserDto>> Login(loginDto loginDto)
          {
-            var user = _context.Users
+            var user = await Task.Run(() =>_context.Users
             .Include(p => p.Photos)
-            .FirstOrDefault(x=> x.UserName == loginDto.username);
+            .FirstOrDefault(x=> x.UserName == loginDto.username));
 
             if(user == null)
             {
