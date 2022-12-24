@@ -14,19 +14,22 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
-            // add JWT token services in pipeline.
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IPhotoService,PhotoService>();
-            services.AddScoped<ILikesRepository, LikesRepository>();
-            services.AddScoped<LogUserActivity>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors();
 
+            // add JWT token services in pipeline.
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+            services.AddScoped<IPhotoService,PhotoService>();
+            services.AddScoped<LogUserActivity>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMessageRepository,MessageRepository>();
+            
             return services;
         }
     }
