@@ -16,6 +16,8 @@ namespace API.DTOs
 
         public string RecipientPhotoUrl { get; set; }
 
+        public string RecipientUserName { get; set; }
+
         public string Content { get; set; }
 
         public DateTime? DateRead { get; set; }
