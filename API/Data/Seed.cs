@@ -21,12 +21,7 @@ namespace API.Data
 
             foreach (var user in users)
             {
-               using var hamc = new HMACSHA512();
-
                user.UserName = user.UserName.ToLower();
-               user.PasswordHash = hamc.ComputeHash(Encoding.UTF8.GetBytes("Password"));
-               user.PasswordSalt = hamc.Key;
-
                context.Users.Add(user);
             }
 
