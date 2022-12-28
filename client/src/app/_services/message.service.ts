@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { truncate } from 'fs';
 import { environment } from 'src/environments/environment';
 import { Message } from '../_models/message';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
