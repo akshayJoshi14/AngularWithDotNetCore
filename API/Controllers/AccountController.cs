@@ -58,7 +58,7 @@ namespace API.Controllers
          {
             var user = await Task.Run(() =>_userManager.Users
             .Include(p => p.Photos)
-            .FirstOrDefault(x=> x.UserName == loginDto.username));
+            .SingleOrDefaultAsync(x=> x.UserName == loginDto.username));
 
             if(user == null)
             {
